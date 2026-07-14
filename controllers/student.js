@@ -12,7 +12,7 @@ const createStudentController = (req, res) => {
   student
     .save()
     .then(() => {
-      res.status(201).json({"data":student});
+      res.status(201).json({"dataa":student});
     })
     .catch((err) => console.log(err));
 };
