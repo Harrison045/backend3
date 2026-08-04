@@ -7,7 +7,6 @@ const Schema = mongoose.Schema;
 const StudentSchema = new Schema({
   name: {
     type: String,
-    required: true,
   },
   age: {
     type: Number,
@@ -21,10 +20,14 @@ const StudentSchema = new Schema({
     type: String,
     required: true,
   },
+  phoneNumber: {
+    type: Number,
+    required: true,
+  },
 });
 
 //Define Model
-const StudentModel = mongoose.model("Student", StudentSchema)
+const StudentModel = mongoose.model("Student", StudentSchema);
 
 //Export Model
-module.exports = StudentModel
+module.exports = StudentModel;

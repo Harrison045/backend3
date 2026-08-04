@@ -1,17 +1,28 @@
 const express = require("express");
 const studentRoute = require("./routes/student");
+const UserAuth = require("./routes/user")
 const { default: mongoose } = require("mongoose");
+const cookieParser = require("cookie-parser")
+const dns = require("dns");
 require("dotenv").config();
 
+// Use a reliable public DNS resolver so the mongodb+srv SRV lookup works
+// (the system default resolver here is a link-local IPv6 address c-ares refuses)
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
+
 const server = express();
-PORT = 3004;
+PORT = process.env.port || 3001;
 
 //body parser
 server.use(express.json());
+//cookie parser
+server.use(cookieParser())
 
-//call route
-server.use(studentRoute);
-
+//routes
+//student route
+server.use(studentRoute)
+//auth route
+server.use(UserAuth)
 //mongodb connection
 mongoose
   .connect(process.env.mongodb_url)
