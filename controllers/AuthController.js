@@ -2,7 +2,7 @@ const { validationResult } = require("express-validator");
 const AuthModel = require("../models/Auth");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+require("dotenv").config()
 
 const signUp = async (req, res) => {
   const errors = validationResult(req);
@@ -32,10 +32,10 @@ const signUp = async (req, res) => {
         user
           .save()
           .then(() => {
-            res.cookie("token", token, {
+            res.cookie("usertoken", token, {
               httpOnly: true,
               secure: false,
-              maxAge: 3600000,
+              sameSite: "none",
             });
             res.status(201).json({
               message: "User account created successfully",
@@ -89,9 +89,9 @@ const signIn = async (req, res) => {
     });
 };
 
-const signOut = (req,res) =>{
-  res.clearCookie('token')
-  res.status(200).json("User logged out")
-}
+const signOut = (req, res) => {
+  res.clearCookie("usertoken");
+  res.status(200).json("user logged out successfully");
+};
 
 module.exports = { signUp, signIn, signOut };

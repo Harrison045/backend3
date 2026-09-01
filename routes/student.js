@@ -40,7 +40,7 @@ router.post(
   ],
   registerStudent,
 );
-router.get("/student",Authorization, retrieveStudent);
+router.get("/student", retrieveStudent);
 router.get("/student/:id", retrieveStudent);
 router.put("/student", updateStudent);
 router.delete("/student", deleteStudent);

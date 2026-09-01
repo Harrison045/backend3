@@ -1,31 +1,30 @@
-//import jsonwebtoken
 const jwt = require("jsonwebtoken");
 require("dotenv").config()
 
 const Authorization = (req, res, next) => {
-  try {
-    const token = req.cookies.token
+  // // Get the Authorization header
+  // const authorizationHeader = req.get("Authorization");
+  // if (!authorizationHeader) {
+  //   throw new Error("Not authenticated, please sign in");
+  // }
 
-    if(!token){
-        return res.status(401).json({ error: 'No token provided' });
-    }
+  // //Extract the token from Authorization header
+  // const token = authorizationHeader.split(" ")[1];
 
-    //verify token with jwt
+  const token = req.cookies.usertoken
 
-    const decodedToken = jwt.verify(
-      token,
-      process.env.JWT_SECRET,
-    );
+  //Verify the token using the secret key
+  const decodedToken = jwt.verify(
+    token,
+    process.env.JWT_SECRET,
+  );
 
-    req.user = decodedToken
+  req.user = decodedToken
 
-    if (!decodedToken) {
-      throw new Error("Unauthorized");
-    }
-    next()
-  } catch (error) {
-    console.log(error);
+  if (!decodedToken) {
+    throw new Error("Invalid token, please try again");
   }
+  next();
 };
 
 module.exports = Authorization;
