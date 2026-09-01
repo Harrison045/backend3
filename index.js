@@ -11,7 +11,7 @@ require("dotenv").config();
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const server = express();
-PORT = process.env.PORT || 3001;
+PORT = process.env.PORT || 3000;
 
 //body parser
 server.use(express.json());
