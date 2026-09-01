@@ -27,7 +27,7 @@ server.use(UserAuth)
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
-    server.listen(PORT, "localhost", () =>
+    server.listen(PORT, "0.0.0.0", () =>
       console.log(`Server is live on port http://localhost:${PORT}`),
     );
   })
